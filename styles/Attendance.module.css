@@ -1,0 +1,100 @@
+.tableContainer {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  margin: auto;
+  overflow: auto;
+  height: 500px;
+}
+.mainTable {
+  position: relative;
+  width: 100%;
+  min-width: 1280px;
+
+  margin: auto;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.mainTable td,
+.mainTable tr {
+  border: 0.4px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.mainTable th,
+.mainTable td {
+  border: 0.4px solid #ddd;
+  background: #fff;
+  vertical-align: top;
+  width: 100%;
+  overflow: hidden;
+  outline: 1px solid #ddd;
+  text-align: center;
+  font-weight: 300;
+}
+
+.mainTable tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.mainTable tr:hover {
+  background-color: #ddd;
+}
+
+.mainTable thead th {
+  background: #35304a;
+  font-family: Montserrat-Medium;
+  line-height: 1.4;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: #fff;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+.mainTable th {
+  position: sticky;
+  top: 0;
+  min-width: 4.5rem;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  font-weight: 500;
+  background-color: #d0caca;
+  color: black;
+  text-align: center;
+  width: 10rem;
+}
+.mainTable th.nameHeader {
+  position: sticky;
+  top: 0;
+  min-width: 10rem;
+  max-width: 30rem;
+
+  color: white;
+  text-align: center;
+}
+
+.mainTable tbody tr td:first-child {
+  position: sticky;
+
+  left: 0;
+  overflow-y: hidden;
+  background-color: #fff;
+  text-align: left;
+  outline: 1px solid #fff;
+}
+.mainTable thead th:first-child {
+  position: sticky;
+  left: 0;
+  top: 0;
+  background-color: #35304a;
+  text-align: center;
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  z-index: 2;
+}
