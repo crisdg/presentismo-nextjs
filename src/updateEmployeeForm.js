@@ -5,13 +5,19 @@ import { Button, Input, FormControl } from "@chakra-ui/react"
 import styles from "../styles/createEmployeeForm.module.css"
 
 export default function CreateEmployeeForm(props) {
-  console.log(props.data)
   const { data } = props
 
+  const dateIn = new Date(data[0].fecha_ingreso)
+  const year = dateIn.getFullYear()
+  const month = dateIn.getMonth()
+  const day = dateIn.getDate()
+
+  const formatedDate = "2021-05-10"
+
   const [id, setId] = useState(data[0].id)
-  const [apeliido, setApellido] = useState(data[0].apelliido)
+  const [apeliido, setApellido] = useState(data[0].apeliido)
   const [nombre, setNombre] = useState(data[0].nombre)
-  const [fecha_ingreso, setFechaIngreso] = useState(data[0].fecha_ingreso)
+  const [fecha_ingreso, setFechaIngreso] = useState(formatedDate)
   const [dni, setDni] = useState(data[0].dni)
   const [direccion, setDireccion] = useState(data[0].direccion)
   const [telefono, setTelefono] = useState(data[0].telefono)
@@ -28,7 +34,7 @@ export default function CreateEmployeeForm(props) {
         },
         body: JSON.stringify({
           id: id,
-          apelliido: apeliido,
+          apeliido: apeliido,
           nombre: nombre,
           fecha_ingreso: fecha_ingreso,
           dni: dni.toString(),

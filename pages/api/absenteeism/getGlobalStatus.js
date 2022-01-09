@@ -1,10 +1,10 @@
 import { NextApiHandler } from "next"
-import { query } from "../../lib/db"
+import { query } from "../../../lib/db"
 
 const handler = async (_, res) => {
   try {
     const results = await query(`
-      SELECT * FROM empleados
+      SELECT * FROM ausentismo
       ORDER BY id DESC
       
   `)

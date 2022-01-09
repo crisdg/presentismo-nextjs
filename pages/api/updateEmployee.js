@@ -6,7 +6,7 @@ const filter = new Filter()
 const handler = async (req, res) => {
   const {
     id,
-    apelliido,
+    apeliido,
     nombre,
     fecha_ingreso,
     dni,
@@ -23,7 +23,7 @@ const handler = async (req, res) => {
     }
     console.log(
       id,
-      apelliido,
+      apeliido,
       nombre,
       fecha_ingreso,
       dni,
@@ -36,7 +36,7 @@ const handler = async (req, res) => {
       `
       UPDATE empleados SET  
     
-      apelliido = ?,
+      apeliido = ?,
       nombre = ?,
       fecha_ingreso = ?,
       dni = ?,
@@ -47,7 +47,7 @@ const handler = async (req, res) => {
       WHERE id = ?
       `,
       [
-        filter.clean(apelliido),
+        filter.clean(apeliido),
         filter.clean(nombre),
         filter.clean(fecha_ingreso),
         filter.clean(dni),

@@ -1,18 +1,10 @@
 import { useEffect, useState } from "react"
 import { useDisclosure } from "@chakra-ui/react"
 import {
-  Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
+  Heading,
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
@@ -32,14 +24,20 @@ export default function EmployeesList() {
   useEffect(() => {
     fetch("/api/getEmployees")
       .then((res) => res.json())
-      .then((data) => setEmployees(data))
+      .then((data) => {
+        setEmployees(data)
+        console.log(data)
+      })
   }, [])
 
   return (
     <>
       <div>
         <NavBar />
-        <h1>Lista de empleados</h1>
+        <Heading>Lista de empleados</Heading>
+        <Link href='/employees/createEmployee'>
+          <a>+</a>
+        </Link>
         <div className={Styles.container}>
           <div className={Styles.nombreList}>
             <Table variant='striped' size='lg' colorScheme='teal'>
@@ -59,7 +57,7 @@ export default function EmployeesList() {
                     <>
                       <Tr>
                         <Td>{employee.id}</Td>
-                        <Td>{employee.apelliido}</Td>
+                        <Td>{employee.apeliido}</Td>
                         <Td>{employee.nombre}</Td>
                         <Td>{employee.sector}</Td>
                         <Td>{employee.puesto}</Td>

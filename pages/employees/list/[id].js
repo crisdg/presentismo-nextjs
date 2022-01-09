@@ -39,7 +39,7 @@ export default function EditEntryPage() {
     return (
       <>
         <h1>Info de empleado</h1>
-        <h2>{`${data[0].apelliido}  ${data[0].nombre}`}</h2>
+        <h2>{`${data[0].apeliido}  ${data[0].nombre}`}</h2>
         <Button
           onClick={onOpen}
           px='6'
