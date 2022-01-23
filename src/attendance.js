@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react"
-import { useDisclosure } from "@chakra-ui/react"
+import * as d3 from "d3"
+
+import { cookieStorageManager, useDisclosure } from "@chakra-ui/react"
 
 import {
   Button,
@@ -11,8 +13,9 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react"
 import DayStatusForm from "./dayStatusForm"
-import { useEntries } from "../lib/swr-hooks"
 import styles from "../styles/Attendance.module.css"
+import { scaleRadial } from "d3"
+
 export default function Attendance() {
   const [employees, setEmployees] = useState([])
   const [globalStatus, setGlobalStatus] = useState([])
@@ -30,11 +33,92 @@ export default function Attendance() {
       .then((data) => setGlobalStatus(data))
   }, [])
 
-  console.log(globalStatus.map((item) => item.fecha))
+  //Logica para visualizar las fechas en la tabla de ausentismo
+
+  // toma las fechas de la db "presentismo" y completa las fechas faltantes entre la 1ª y la ultima carga
+
   const dates = globalStatus.map((item) => item.fecha)
-  console.log(dates)
+
   const uniqueDates = [...new Set(dates)]
-  console.log(uniqueDates)
+  const uniqueDatesFormatted = uniqueDates.map((date) => new Date(date))
+
+  const minDate = new Date(Math.min.apply(null, uniqueDatesFormatted))
+  const maxDate = new Date(Math.max.apply(null, uniqueDatesFormatted))
+
+  const range = d3.utcDay.range(
+    new Date(minDate),
+    d3.utcDay.offset(new Date(maxDate))
+  )
+
+  const fomatDate = d3.timeFormat("%d-%m")
+
+  // construye un array con los empleados y el status diario de cada uno ****/// falta completar status de fechas faltantes ///*******
+  const status = employees.map((employee) => {
+    const employeeFilter = globalStatus.filter(
+      (status) => status.id_empleado === employee.id
+    )
+    return employeeFilter
+  })
+
+  const presentismo = employees.map((employee) => {
+    const stat = globalStatus
+      .filter((status) => status.id_empleado === employee.id)
+      .map((item) => {
+        return {
+          status: item.status,
+          fecha: item.fecha,
+        }
+      })
+
+    return {
+      nombre: employee.nombre,
+      apellido: employee.apeliido,
+      id: employee.id,
+      dates: stat,
+    }
+  })
+
+  const completo = presentismo.map((employee) => {
+    const employeeStatus = employee.dates.map((date) => {
+      let statusDate = new Date(date.fecha)
+      statusDate = statusDate.toLocaleDateString()
+
+      return statusDate
+    })
+
+    const completeRange = range.map((rangeDate) => {
+      const parseDate = new Date(rangeDate).toLocaleDateString()
+      const verifyDate = employeeStatus.includes(parseDate)
+
+      if (verifyDate === true) {
+        const employeeStatus = employee.dates.filter((date) => {
+          const formatDate = new Date(date.fecha).toLocaleDateString()
+
+          if (formatDate === parseDate) {
+            return date.status
+          }
+        })
+
+        const finalStatus = employeeStatus[0].status
+
+        return {
+          nombre: employee.nombre,
+          fecha: parseDate,
+          status: finalStatus,
+        }
+      } else {
+        return {
+          nombre: employee.nombre,
+          fecha: parseDate,
+          status: "vacio",
+        }
+      }
+    })
+
+    return completeRange
+  })
+
+  console.log(completo)
 
   return (
     <div className={styles.tableContainer}>
@@ -48,46 +132,32 @@ export default function Attendance() {
       ></Button>
       <table className={styles.mainTable}>
         <thead>
-          <th className={styles.nameHeader}>Nombre</th>
-          <th>Lu</th>
-          <th>Ma</th>
-          <th>Mi</th>
-          <th>Ju</th>
-          <th>Vi</th>
-          <th>Sa</th>
-          <th>Do</th>
-          <th>Lu</th>
-          <th>Ma</th>
-          <th>Mi</th>
-          <th>Ju</th>
-          <th>Vi</th>
-          <th>Sa</th>
-          <th>Do</th>
-          <th>Lu</th>
-          <th>Ma</th>
-          <th>Mi</th>
-          <th>Ju</th>
-          <th>Vi</th>
-          <th>Sa</th>
-          <th>Do</th>
-          <th>Lu</th>
-          <th>Ma</th>
-          <th>Mi</th>
-          <th>Ju</th>
-          <th>Vi</th>
-          <th>Sa</th>
-          <th>Do</th>
+          <th className={styles.nameHeader} key={"1sd2"}>
+            Nombre
+          </th>
+          {range.map((date, index) => (
+            <th key={index}>{`${fomatDate(date)}`}</th>
+          ))}
         </thead>
         <tbody>
           {employees.map((employee) => {
             return (
-              <tr>
+              <tr key={Math.random()}>
                 <td>{`${employee.apeliido} ${employee.nombre}`}</td>
+
+                {completo.map((item) => {
+                  const filtrado = item.filter(
+                    (stat) => stat.nombre === employee.nombre
+                  )
+
+                  return filtrado.map((item) => <td>{item.status}</td>)
+                })}
               </tr>
             )
           })}
         </tbody>
       </table>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
