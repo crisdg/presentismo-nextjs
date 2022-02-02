@@ -10,6 +10,7 @@
     "migrate": "node scripts/migrate-db.js"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^1.1.1",
     "@chakra-ui/react": "^1.6.10",
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
@@ -21,7 +22,9 @@
     "next": "11.1.2",
     "react": "^17.0.2",
     "react-dom": "17.0.2",
+    "react-icons": "^4.3.1",
     "serverless-mysql": "^1.5.4",
+    "sweetalert": "^2.1.2",
     "swr": "^1.0.1"
   },
   "devDependencies": {

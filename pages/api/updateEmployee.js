@@ -14,6 +14,7 @@ const handler = async (req, res) => {
     telefono,
     sector,
     puesto,
+    turno,
   } = req.body
   try {
     if (!id) {
@@ -21,17 +22,7 @@ const handler = async (req, res) => {
         .status(400)
         .json({ message: "`id`,`title`, and `content` are all required" })
     }
-    console.log(
-      id,
-      apeliido,
-      nombre,
-      fecha_ingreso,
-      dni,
-      direccion,
-      telefono,
-      sector,
-      puesto
-    )
+
     const results = await query(
       `
       UPDATE empleados SET  
@@ -43,7 +34,8 @@ const handler = async (req, res) => {
       direccion = ?,
       telefono = ?,
       sector = ?,
-      puesto = ?
+      puesto = ?,
+      turno = ?
       WHERE id = ?
       `,
       [
@@ -55,6 +47,7 @@ const handler = async (req, res) => {
         filter.clean(telefono),
         filter.clean(sector),
         filter.clean(puesto),
+        filter.clean(turno),
         id,
       ]
     )

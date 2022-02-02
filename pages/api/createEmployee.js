@@ -14,6 +14,7 @@ const handler = async (req, res) => {
     telefono,
     sector,
     puesto,
+    turno,
   } = req.body
 
   console.log(req.body, "desdeapi")
@@ -27,7 +28,7 @@ const handler = async (req, res) => {
     const results = await query(
       `
       INSERT INTO empleados 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
       `,
       [
         filter.clean(id),
@@ -39,6 +40,7 @@ const handler = async (req, res) => {
         filter.clean(telefono),
         filter.clean(sector),
         filter.clean(puesto),
+        filter.clean(turno),
       ]
     )
 

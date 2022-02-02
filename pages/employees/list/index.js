@@ -48,6 +48,7 @@ export default function EmployeesList() {
                   <Th>Nombre</Th>
                   <Th>Sector</Th>
                   <Th>Puesto</Th>
+                  <Th>Turno</Th>
                   <Th>Info</Th>
                 </Tr>
               </Thead>
@@ -61,6 +62,7 @@ export default function EmployeesList() {
                         <Td>{employee.nombre}</Td>
                         <Td>{employee.sector}</Td>
                         <Td>{employee.puesto}</Td>
+                        <Td>{employee.turno}</Td>
                         <Td>
                           <Link
                             href={`http://localhost:3000/employees/list/${employee.id}`}

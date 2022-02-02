@@ -14,7 +14,6 @@ import {
 } from "@chakra-ui/react"
 import DayStatusForm from "./dayStatusForm"
 import styles from "../styles/Attendance.module.css"
-import { scaleRadial } from "d3"
 
 export default function Attendance() {
   const [employees, setEmployees] = useState([])
@@ -110,7 +109,7 @@ export default function Attendance() {
         return {
           nombre: employee.nombre,
           fecha: parseDate,
-          status: "vacio",
+          status: " ",
         }
       }
     })
@@ -121,53 +120,61 @@ export default function Attendance() {
   console.log(completo)
 
   return (
-    <div className={styles.tableContainer}>
-      <Button
-        onClick={onOpen}
-        px='6'
-        py='4'
-        bg='green.100'
-        rounded='md'
-        _hover={{ bg: "green.300" }}
-      ></Button>
-      <table className={styles.mainTable}>
-        <thead>
-          <th className={styles.nameHeader} key={"1sd2"}>
-            Nombre
-          </th>
-          {range.map((date, index) => (
-            <th key={index}>{`${fomatDate(date)}`}</th>
-          ))}
-        </thead>
-        <tbody>
-          {employees.map((employee) => {
-            return (
-              <tr key={Math.random()}>
-                <td>{`${employee.apeliido} ${employee.nombre}`}</td>
+    <>
+      <div>
+        <Button
+          mb='4'
+          mt='4'
+          onClick={onOpen}
+          px='6'
+          py='4'
+          bg='green.100'
+          rounded='md'
+          _hover={{ bg: "green.300" }}
+        >
+          Cargar status
+        </Button>
+      </div>
+      <div className={styles.tableContainer}>
+        <table className={styles.mainTable}>
+          <thead>
+            <th className={styles.nameHeader} key={"1sd2"}>
+              Nombre
+            </th>
+            {range.map((date, index) => (
+              <th key={index}>{`${fomatDate(date)}`}</th>
+            ))}
+          </thead>
+          <tbody>
+            {employees.map((employee) => {
+              return (
+                <tr key={Math.random()}>
+                  <td>{`${employee.apeliido} ${employee.nombre}`}</td>
 
-                {completo.map((item) => {
-                  const filtrado = item.filter(
-                    (stat) => stat.nombre === employee.nombre
-                  )
+                  {completo.map((item) => {
+                    const filtrado = item.filter(
+                      (stat) => stat.nombre === employee.nombre
+                    )
 
-                  return filtrado.map((item) => <td>{item.status}</td>)
-                })}
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+                    return filtrado.map((item) => <td>{item.status}</td>)
+                  })}
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <DayStatusForm />
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-    </div>
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Carga status diario</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <DayStatusForm />
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      </div>
+    </>
   )
 }

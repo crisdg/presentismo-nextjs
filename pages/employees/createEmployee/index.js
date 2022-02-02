@@ -26,6 +26,7 @@ export default function CreateEmployee() {
         telefono: e.target.telefono.value,
         sector: e.target.sector.value,
         puesto: e.target.puesto.value,
+        turno: e.target.turno.value,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -115,6 +116,14 @@ export default function CreateEmployee() {
               variant='flushed'
               placeholder='Puesto'
             />
+            <Input
+              id='turno'
+              type='text'
+              size='md'
+              variant='flushed'
+              placeholder='Turno'
+            />
+
             <Button type='submit' mt='6' alignSelf='flex-end'>
               Enviar
             </Button>

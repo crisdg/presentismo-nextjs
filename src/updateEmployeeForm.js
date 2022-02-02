@@ -23,6 +23,7 @@ export default function CreateEmployeeForm(props) {
   const [telefono, setTelefono] = useState(data[0].telefono)
   const [sector, setSector] = useState(data[0].sector)
   const [puesto, setPuesto] = useState(data[0].puesto)
+  const [turno, setTurno] = useState(data[0].turno)
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -42,6 +43,7 @@ export default function CreateEmployeeForm(props) {
           telefono: telefono.toString(),
           sector: sector,
           puesto: puesto,
+          turno: turno,
         }),
       })
 
@@ -172,6 +174,18 @@ export default function CreateEmployeeForm(props) {
           required
           onChange={(e) => {
             setPuesto(e.target.value)
+          }}
+          size='md'
+        />
+        <Input
+          type='text'
+          name='turno'
+          variant='flushed'
+          placeholder='Turno'
+          value={turno}
+          required
+          onChange={(e) => {
+            setTurno(e.target.value)
           }}
           size='md'
         />

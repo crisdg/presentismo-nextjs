@@ -12,6 +12,7 @@ export default function CreateEmployeeForm() {
   const [telefono, setTelefono] = useState()
   const [sector, setSector] = useState()
   const [puesto, setPuesto] = useState()
+  const [turno, setTurno] = useState()
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -31,6 +32,7 @@ export default function CreateEmployeeForm() {
           telefono: telefono,
           sector: sector,
           puesto: puesto,
+          turno: turno,
         }),
       })
 
@@ -126,6 +128,16 @@ export default function CreateEmployeeForm() {
             setPuesto(e.target.value)
           }}
         />
+        <label htmlFor='puesto'>TURNO</label>
+        <input
+          type='text'
+          name='turno'
+          required
+          onChange={(e) => {
+            setTurno(e.target.value)
+          }}
+        />
+        ggggggggggggggggg
         <input type='submit' />
       </form>
     </>
