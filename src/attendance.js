@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import * as d3 from "d3"
 
-import { cookieStorageManager, useDisclosure } from "@chakra-ui/react"
+import { useDisclosure } from "@chakra-ui/react"
 
 import {
   Button,
@@ -11,6 +11,10 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
+  Flex,
+  FormControl,
+  Input,
+  Box,
 } from "@chakra-ui/react"
 import DayStatusForm from "./dayStatusForm"
 import styles from "../styles/Attendance.module.css"
@@ -18,6 +22,8 @@ import styles from "../styles/Attendance.module.css"
 export default function Attendance() {
   const [employees, setEmployees] = useState([])
   const [globalStatus, setGlobalStatus] = useState([])
+  const [firstDate, setFirstDate] = useState()
+  const [lastDate, setLastDate] = useState()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   useEffect(() => {
@@ -41,8 +47,12 @@ export default function Attendance() {
   const uniqueDates = [...new Set(dates)]
   const uniqueDatesFormatted = uniqueDates.map((date) => new Date(date))
 
-  const minDate = new Date(Math.min.apply(null, uniqueDatesFormatted))
-  const maxDate = new Date(Math.max.apply(null, uniqueDatesFormatted))
+  const minDate = firstDate
+    ? new Date(firstDate + "T00:00:00")
+    : new Date(Math.min.apply(null, uniqueDatesFormatted))
+  const maxDate = lastDate
+    ? new Date(lastDate + "T00:00:00")
+    : new Date(Math.max.apply(null, uniqueDatesFormatted))
 
   const range = d3.utcDay.range(
     new Date(minDate),
@@ -51,7 +61,7 @@ export default function Attendance() {
 
   const fomatDate = d3.timeFormat("%d-%m")
 
-  // construye un array con los empleados y el status diario de cada uno ****/// falta completar status de fechas faltantes ///*******
+  // construye un array con los empleados y el status diario de cada uno
   const status = employees.map((employee) => {
     const employeeFilter = globalStatus.filter(
       (status) => status.id_empleado === employee.id
@@ -59,6 +69,7 @@ export default function Attendance() {
     return employeeFilter
   })
 
+  // filtra por cada empleado el status diario y los datos del empleado
   const presentismo = employees.map((employee) => {
     const stat = globalStatus
       .filter((status) => status.id_empleado === employee.id)
@@ -76,7 +87,7 @@ export default function Attendance() {
       dates: stat,
     }
   })
-
+  // toma el array presentismo y completa el status de los dias sin carga dejandolos vacios.
   const completo = presentismo.map((employee) => {
     const employeeStatus = employee.dates.map((date) => {
       let statusDate = new Date(date.fecha)
@@ -116,25 +127,53 @@ export default function Attendance() {
 
     return completeRange
   })
-
-  console.log(completo)
-
+  console.log(firstDate, lastDate)
   return (
     <>
-      <div>
-        <Button
-          mb='4'
-          mt='4'
-          onClick={onOpen}
-          px='6'
-          py='4'
-          bg='green.100'
-          rounded='md'
-          _hover={{ bg: "green.300" }}
-        >
-          Cargar status
-        </Button>
-      </div>
+      <Flex justifyContent='space-between' mr='4' ml='4'>
+        <Box>
+          <Button
+            mb='4'
+            mt='4'
+            onClick={onOpen}
+            px='6'
+            py='4'
+            bg='green.100'
+            rounded='md'
+            _hover={{ bg: "green.300" }}
+          >
+            Cargar status
+          </Button>
+        </Box>
+        <Box mr='4'>
+          <FormControl>
+            <Flex>
+              <Input
+                type='date'
+                id='firstDate'
+                size='sm'
+                width='44'
+                mt='4'
+                mr='3'
+                onChange={(e) => {
+                  setFirstDate(e.target.value)
+                }}
+              />
+              <Input
+                type='date'
+                id='lastDate'
+                size='sm'
+                width='44'
+                mt='4'
+                ml='3'
+                onChange={(e) => {
+                  setLastDate(e.target.value)
+                }}
+              />
+            </Flex>
+          </FormControl>
+        </Box>
+      </Flex>
       <div className={styles.tableContainer}>
         <table className={styles.mainTable}>
           <thead>

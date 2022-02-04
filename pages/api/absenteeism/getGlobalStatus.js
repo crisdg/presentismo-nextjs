@@ -8,7 +8,7 @@ const handler = async (_, res) => {
       ORDER BY id DESC
       
   `)
-    console.log(results)
+
     return res.json(results)
   } catch (e) {
     res.status(500).json({ message: e.message })

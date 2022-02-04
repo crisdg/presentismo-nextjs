@@ -137,7 +137,7 @@ export default function CreateEmployeeForm() {
             setTurno(e.target.value)
           }}
         />
-        ggggggggggggggggg
+
         <input type='submit' />
       </form>
     </>
