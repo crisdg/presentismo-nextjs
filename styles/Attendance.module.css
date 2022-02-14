@@ -28,19 +28,11 @@
   border: 0.4px solid #ddd;
   background: #fff;
   vertical-align: top;
-  width: 100%;
+
   overflow: hidden;
   outline: 1px solid #ddd;
   text-align: center;
   font-weight: 300;
-}
-
-.mainTable tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.mainTable tr:hover {
-  background-color: #ddd;
 }
 
 .mainTable thead th {
@@ -97,4 +89,46 @@
   position: sticky;
   left: 0;
   z-index: 2;
+}
+
+td.presente {
+  background: url("../public/presente.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  color: lightgreen;
+}
+
+td.tarde {
+  background: url("../public/tarde.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+td.ausenteconaviso {
+  background: url("../public/ausente.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  color: red;
+  stroke: red;
+}
+td.ausentesinaviso {
+  background: url("../public/ausente-sa.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+td.retiro {
+  background: url("../public/retiro.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+td.cumpleaños {
+  background: url("../public/cumpleanos.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+td.vacaciones {
+  background: url("../public/vacaciones.svg");
+  background-position: center;
+  background-repeat: no-repeat;
 }

@@ -195,7 +195,16 @@ export default function Attendance() {
                       (stat) => stat.nombre === employee.nombre
                     )
 
-                    return filtrado.map((item) => <td>{item.status}</td>)
+                    return filtrado.map((item) => (
+                      <td className={styles[item.status.replace(/ /g, "")]}>
+                        {/* {item.status
+                          .split(" ")
+                          .map((str) => str.charAt(0))
+                          .join("")
+                          .toUpperCase()}
+                          */}
+                      </td>
+                    ))
                   })}
                 </tr>
               )
