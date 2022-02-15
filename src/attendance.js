@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import Link from "next/link"
 import * as d3 from "d3"
 
 import { useDisclosure } from "@chakra-ui/react"
@@ -15,6 +16,7 @@ import {
   FormControl,
   Input,
   Box,
+  Text,
 } from "@chakra-ui/react"
 import DayStatusForm from "./dayStatusForm"
 import styles from "../styles/Attendance.module.css"
@@ -145,6 +147,32 @@ export default function Attendance() {
             Cargar status
           </Button>
         </Box>
+        <Box margin='2'>
+          <Text>referencias:</Text>
+
+          <Flex width='60'>
+            <Box>
+              <span className={styles.referencias}>
+                Aus. C/A <span className={styles.ausenteconaviso}></span>
+              </span>
+              <span className={styles.referencias}>
+                Aus. S/A <span className={styles.ausentesinaviso}></span>
+              </span>
+              <span className={styles.referencias}>
+                Tarde <span className={styles.tarde}></span>
+              </span>
+              <span className={styles.referencias}>
+                Retiro <span className={styles.retiro}></span>
+              </span>
+              <span className={styles.referencias}>
+                Vacaciones <span className={styles.vacaciones}></span>
+              </span>
+              <span className={styles.referencias}>
+                Cumpl. <span className={styles.cumpleanos}></span>
+              </span>
+            </Box>
+          </Flex>
+        </Box>
         <Box mr='4'>
           <FormControl>
             <Flex>
@@ -188,7 +216,11 @@ export default function Attendance() {
             {employees.map((employee) => {
               return (
                 <tr key={Math.random()}>
-                  <td>{`${employee.apeliido} ${employee.nombre}`}</td>
+                  <td>
+                    <Link href={`/${employee.id}`}>
+                      <a>{`${employee.apeliido} ${employee.nombre}`}</a>
+                    </Link>
+                  </td>
 
                   {completo.map((item) => {
                     const filtrado = item.filter(

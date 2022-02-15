@@ -132,3 +132,62 @@ td.vacaciones {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+span.ausenteconaviso {
+  display: inline-block;
+  background: url("../public/ausente-sm.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 15px;
+  height: 15px;
+  margin-left: 4px;
+}
+span.ausentesinaviso {
+  display: inline-block;
+  background: url("../public/ausente-sa-sm.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 15px;
+  height: 15px;
+  margin-left: 4px;
+}
+span.tarde {
+  display: inline-block;
+  background: url("../public/tarde-sm.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 15px;
+  height: 15px;
+  margin-left: 4px;
+}
+span.retiro {
+  display: inline-block;
+  background: url("../public/retiro-sm.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 15px;
+  height: 15px;
+  margin-left: 4px;
+}
+span.vacaciones {
+  display: inline-block;
+  background: url("../public/vacaciones-sm.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 15px;
+  height: 15px;
+  margin-left: 4px;
+}
+span.cumpleanos {
+  display: inline-block;
+  background: url("../public/cumpleanos-sm.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 15px;
+  height: 15px;
+  margin-left: 4px;
+}
+span.referencias {
+  font-size: small;
+  margin-right: 8.5px;
+}
