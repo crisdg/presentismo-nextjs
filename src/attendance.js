@@ -217,7 +217,7 @@ export default function Attendance() {
               return (
                 <tr key={Math.random()}>
                   <td>
-                    <Link href={`/${employee.id}`}>
+                    <Link href={`/absenteeism/${employee.id}`}>
                       <a>{`${employee.apeliido} ${employee.nombre}`}</a>
                     </Link>
                   </td>
