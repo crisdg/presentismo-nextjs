@@ -49,6 +49,8 @@ export default function Attendance() {
   const uniqueDates = [...new Set(dates)]
   const uniqueDatesFormatted = uniqueDates.map((date) => new Date(date))
 
+  console.log(firstDate)
+
   const minDate = firstDate
     ? new Date(firstDate + "T00:00:00")
     : new Date(Math.min.apply(null, uniqueDatesFormatted))
@@ -129,7 +131,7 @@ export default function Attendance() {
 
     return completeRange
   })
-  console.log(firstDate, lastDate)
+
   return (
     <>
       <Flex justifyContent='space-between' mr='4' ml='4'>

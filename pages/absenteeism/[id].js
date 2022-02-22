@@ -1,7 +1,7 @@
 import React from "react"
 import { useRouter } from "next/router"
 import { useEmployeeStat, useEntry } from "../../lib/swr-hooks"
-import { useEffect, useState } from "react"
+
 import {
   Heading,
   Flex,
@@ -11,12 +11,12 @@ import {
   Container,
   Progress,
 } from "@chakra-ui/react"
+import Calendar from "../../src/calendar/calendar.js/calendar"
 
 export default function employeeStat() {
   const router = useRouter()
   const id = router.query.id
   const { data } = useEmployeeStat(id)
-  const [employeeData, setEmployeeData] = useState()
 
   if (data) {
     return (
@@ -181,6 +181,18 @@ export default function employeeStat() {
               </Flex>
             </Flex>
           </Flex>
+          <Container maxW='container.xl' height='container.xl' mt='6'>
+            <Flex flexDirection='row'>
+              <Box width='container.xl' height='fit-content'>
+                <Calendar data={data} />
+              </Box>
+              <Box
+                width='container.sm'
+                height='container.sm'
+                bgColor='lightsalmon'
+              ></Box>
+            </Flex>
+          </Container>
         </Container>
       </>
     )
