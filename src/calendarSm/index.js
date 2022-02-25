@@ -3,8 +3,10 @@ import { useState, useEffect } from "react"
 import * as d3 from "d3"
 import FullCalendar from "@fullcalendar/react" // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid" // a plugin!
-import { Box } from "@chakra-ui/react"
-export default function Calendar({ data, aspectRatio, width, header }) {
+import styles from "../../styles/calendarSm.module.css"
+import { Box, Flex } from "@chakra-ui/react"
+
+export default function calendarSm({ data, initialDate }) {
   const [startDate, setStartDate] = useState()
   const [endDate, setEndDate] = useState()
 
@@ -42,13 +44,16 @@ export default function Calendar({ data, aspectRatio, width, header }) {
   //
 
   return (
-    <Box width={width}>
+    <Box className={styles[`fc-daygrid-day-events`]}>
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView='dayGridMonth'
-        aspectRatio={aspectRatio}
         fixedWeekCount={false}
-        headerToolbar={header}
+        headerToolbar={false}
+        dayHeaders={false}
+        aspectRatio={1.2}
+        eventDisplay='block'
+        initialDate={initialDate}
         events={monthData.map((item) => {
           const start = new Date(item.fecha)
             .toISOString()

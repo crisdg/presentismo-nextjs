@@ -1,0 +1,9 @@
+.fc-daygrid-day-events {
+  font-size: 9px;
+  font-weight: 500;
+  overflow: hidden;
+}
+
+.fc-daygrid-day-events tr td div:nth-child(2n) {
+  display: none;
+}
