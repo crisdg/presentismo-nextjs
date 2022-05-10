@@ -44,7 +44,7 @@ export default function calendarSm({ data, initialDate }) {
   //
 
   return (
-    <Box className={styles[`fc-daygrid-day-events`]}>
+    <Box className={styles[`fc-daygrid-day-events`]} bg='#ffffff'>
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView='dayGridMonth'

@@ -230,14 +230,7 @@ export default function Attendance() {
                     )
 
                     return filtrado.map((item) => (
-                      <td className={styles[item.status.replace(/ /g, "")]}>
-                        {/* {item.status
-                          .split(" ")
-                          .map((str) => str.charAt(0))
-                          .join("")
-                          .toUpperCase()}
-                          */}
-                      </td>
+                      <td className={styles[item.status.replace(/ /g, "")]} />
                     ))
                   })}
                 </tr>

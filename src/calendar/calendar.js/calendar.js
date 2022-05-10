@@ -42,7 +42,7 @@ export default function Calendar({ data, aspectRatio, width, header }) {
   //
 
   return (
-    <Box width={width}>
+    <Box width={width} bg='#ffffff'>
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView='dayGridMonth'

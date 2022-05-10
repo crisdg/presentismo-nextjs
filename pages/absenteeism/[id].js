@@ -10,14 +10,19 @@ import {
   Divider,
   Container,
   Progress,
+  Image,
 } from "@chakra-ui/react"
 import Calendar from "../../src/calendar/calendar.js/calendar"
 import CalendarSm from "../../src/calendarSm"
+import AbsenteeismLog from "../../src/absenteeismLog"
+import PieChart from "../../src/pieChart"
+import LineChart from "../../src/lineChart"
 
 export default function employeeStat() {
   const router = useRouter()
   const id = router.query.id
   const { data } = useEmployeeStat(id)
+
   const initialDates = [
     "2022-01-01",
     "2022-02-02",
@@ -32,214 +37,254 @@ export default function employeeStat() {
     "2022-11-01",
     "2022-12-01",
   ]
+  //**array de prueba para pieChart */
+  const testData = [
+    { label: "presente", value: 40 },
+    { label: "ausente con aviso", label: "ausente sin aviso", value: 25 },
+    { label: "Vacaciones", value: 15 },
+    { label: "Tarde", value: 8 },
+    { label: "Retiro", value: 2 },
+  ]
 
   if (data) {
     return (
-      <>
-        <Container maxW='container.xl' mt='10'>
-          <Flex mt='10' height='40' justifyContent='space-between' shadow='md'>
-            <Box marginRight='4' width='container.sm' textAlign='center'>
-              <Heading size='md'>Estadisticas de empleado</Heading>
-              <Heading size='sm'>
-                {/* {data[0].nombre} {data[0].apellido} */}
-              </Heading>
-            </Box>
-
+      <Box height='100%' mr='10' ml='10'>
+        <Flex mt='10' height='40' shadow='md' bg='#fff' borderRadius='md'>
+          <Box marginRight='4' ml='4' width='container.sm' textAlign='center'>
+            <Heading size='md'>Nombre de empleado</Heading>
             <Flex
-              flexDirection='row'
-              width='full'
-              justifyContent='space-evenly'
+              boxSize='28'
+              alignItems='center'
+              justifyContent='center'
+              alignContent='center'
+              w='full'
             >
-              <Box>
-                <Flex flexDirection='column'>
-                  <Box mr='4' textAlign='center'>
-                    <Text textAlign='center'>Presente </Text>
-                  </Box>
-                  <Divider />
-                  <Box textAlign='center'>
-                    <Text fontSize='x-large' fontWeight='semibold' mt='2'>
-                      {data.filter((item) => item.status === "presente").length}
-                    </Text>
-                    <Progress
-                      value={
-                        (data.filter((item) => item.status === "presente")
-                          .length *
-                          100) /
-                        data.length
-                      }
-                      mt='5'
-                      size='xs'
-                      colorScheme='green'
-                    ></Progress>
-                  </Box>
-                </Flex>
+              <Box boxSize='24'>
+                <Image src='/profile.svg' />
               </Box>
-              <Box>
-                <Flex flexDirection='column'>
-                  <Box mr='4' textAlign='center'>
-                    <Text>Ausente con aviso </Text>
-                  </Box>
-                  <Divider />
-                  <Box textAlign='center'>
-                    <Text fontSize='x-large' fontWeight='semibold' mt='2'>
-                      {
-                        data.filter(
-                          (item) => item.status === "ausente con aviso"
-                        ).length
-                      }
-                    </Text>
-                    <Progress
-                      value={
-                        (data.filter(
-                          (item) => item.status === "ausente con aviso"
-                        ).length *
-                          100) /
-                        data.length
-                      }
-                      mt='5'
-                      size='xs'
-                      colorScheme='green'
-                    ></Progress>
-                  </Box>
-                </Flex>
-              </Box>
-              <Flex flexDirection='column'>
-                <Box mr='4' textAlign='center'>
-                  <Text>Ausente sin aviso</Text>
-                </Box>
-                <Divider />
-                <Box textAlign='center'>
-                  <Text fontSize='x-large' fontWeight='semibold' mt='2'>
-                    {
-                      data.filter((item) => item.status === "ausente sin aviso")
-                        .length
-                    }
-                  </Text>
-                  <Progress
-                    value={
-                      (data.filter(
-                        (item) => item.status === "ausente sin aviso"
-                      ).length *
-                        100) /
-                      data.length
-                    }
-                    mt='5'
-                    size='xs'
-                    colorScheme='green'
-                  ></Progress>
-                </Box>
-              </Flex>
-              <Flex flexDirection='column'>
-                <Box mr='4' textAlign='center'>
-                  <Text>Vacaciones</Text>
-                </Box>
-                <Divider />
-                <Box textAlign='center'>
-                  <Text fontSize='x-large' fontWeight='semibold' mt='2'>
-                    {data.filter((item) => item.status === "vacaciones").length}
-                  </Text>
-                  <Progress
-                    value={
-                      (data.filter((item) => item.status === "vacaciones")
-                        .length *
-                        100) /
-                      data.length
-                    }
-                    mt='5'
-                    size='xs'
-                    colorScheme='green'
-                  ></Progress>
-                </Box>
-              </Flex>
-              <Flex flexDirection='column'>
-                <Box mr='4' textAlign='center'>
-                  <Text>Ingreso tarde</Text>
-                </Box>
-                <Divider />
-                <Box textAlign='center'>
-                  <Text fontSize='x-large' fontWeight='semibold' mt='2'>
-                    {data.filter((item) => item.status === "tarde").length}
-                  </Text>
-                  <Progress
-                    value={
-                      (data.filter((item) => item.status === "tarde").length *
-                        100) /
-                      data.length
-                    }
-                    mt='5'
-                    size='xs'
-                    colorScheme='green'
-                  ></Progress>
-                </Box>
-              </Flex>
-
-              <Flex flexDirection='column'>
-                <Box mr='4' textAlign='center'>
-                  <Text>Retiro anticipado</Text>
-                </Box>
-                <Divider />
-                <Box textAlign='center'>
-                  <Text fontSize='x-large' fontWeight='semibold' mt='2'>
-                    {data.filter((item) => item.status === "retiro").length}
-                  </Text>
-                  <Progress
-                    value={
-                      (data.filter((item) => item.status === "retiro").length *
-                        100) /
-                      data.length
-                    }
-                    mt='5'
-                    size='xs'
-                    colorScheme='green'
-                  ></Progress>
-                </Box>
-              </Flex>
             </Flex>
-          </Flex>
-          <Container maxW='container.xl' mt='6'>
-            <Flex flexDirection='row'>
-              <Box height='fit-content' shadow='lg'>
-                <Calendar
-                  data={data}
-                  contentHeight='350px'
-                  width='container.sm'
-                  aspectRatio='1.15'
+          </Box>
+
+          <Flex flexDirection='row' width='full' justifyContent='space-between'>
+            <Flex
+              flexDirection='column'
+              justifyContent='space-around'
+              ml='3'
+              mr='3'
+            >
+              <Box mr='4' textAlign='center'>
+                <Text textAlign='center'>Presente </Text>
+              </Box>
+              <Divider />
+              <Box textAlign='center'>
+                <Text fontSize='x-large' fontWeight='semibold' mt='2'>
+                  {data.filter((item) => item.status === "presente").length}
+                </Text>
+              </Box>
+              <Box h='10'>
+                <Progress
+                  value={
+                    (data.filter((item) => item.status === "presente").length *
+                      100) /
+                    data.length
+                  }
+                  mt='5'
+                  size='xs'
+                  colorScheme='green'
                 />
               </Box>
-              <Flex width='container.lg' flexDirection='row' flexWrap='wrap'>
-                {initialDates.map((date) => {
-                  return (
-                    <Box
-                      bg='lightgray'
-                      width='30%'
-                      m='2'
-                      mb='1'
-                      mt='1'
-                      shadow='lg'
-                    >
-                      <CalendarSm data={data} initialDate={date}></CalendarSm>
-                    </Box>
-                  )
-                })}
-                {/* <Flex w='100%' mt='1'>
-                  <Box bg='lightgray' width='33%' h='100%' m='2' mb='1' mt='1'>
-                    <CalendarSm data={data}></CalendarSm>
-                  </Box>
-                  <Box
-                    bg='yellow'
-                    width='33%'
-                    h='100%'
-                    m='2'
-                    mb='1'
-                    mt='1'
-                  ></Box>
-                  <Box bg='blue' width='33%' h='100%' m='2' mb='1' mt='1'></Box>
-                </Flex> */}
-              </Flex>
             </Flex>
+
+            <Flex
+              flexDirection='column'
+              justifyContent='space-around'
+              ml='3'
+              mr='3'
+            >
+              <Box mr='4' textAlign='center'>
+                <Text>Aus. con aviso </Text>
+              </Box>
+              <Divider />
+              <Box textAlign='center'>
+                <Text fontSize='x-large' fontWeight='semibold' mt='2'>
+                  {
+                    data.filter((item) => item.status === "ausente con aviso")
+                      .length
+                  }
+                </Text>
+              </Box>
+              <Box h='10'>
+                <Progress
+                  value={
+                    (data.filter((item) => item.status === "ausente con aviso")
+                      .length *
+                      100) /
+                    data.length
+                  }
+                  mt='5'
+                  size='xs'
+                  colorScheme='green'
+                ></Progress>
+              </Box>
+            </Flex>
+
+            <Flex
+              flexDirection='column'
+              justifyContent='space-around'
+              ml='3'
+              mr='3'
+            >
+              <Box mr='4' textAlign='center'>
+                <Text>Aus. sin aviso</Text>
+              </Box>
+              <Divider />
+              <Box textAlign='center'>
+                <Text fontSize='x-large' fontWeight='semibold' mt='2'>
+                  {
+                    data.filter((item) => item.status === "ausente sin aviso")
+                      .length
+                  }
+                </Text>
+              </Box>
+              <Box h='10'>
+                <Progress
+                  value={
+                    (data.filter((item) => item.status === "ausente sin aviso")
+                      .length *
+                      100) /
+                    data.length
+                  }
+                  mt='5'
+                  size='xs'
+                  colorScheme='green'
+                ></Progress>
+              </Box>
+            </Flex>
+            <Flex
+              flexDirection='column'
+              justifyContent='space-around'
+              ml='3'
+              mr='3'
+            >
+              <Box mr='4' textAlign='center'>
+                <Text>Vacaciones</Text>
+              </Box>
+              <Divider />
+              <Box textAlign='center'>
+                <Text fontSize='x-large' fontWeight='semibold' mt='2'>
+                  {data.filter((item) => item.status === "vacaciones").length}
+                </Text>
+              </Box>
+              <Box h='10'>
+                <Progress
+                  value={
+                    (data.filter((item) => item.status === "vacaciones")
+                      .length *
+                      100) /
+                    data.length
+                  }
+                  mt='5'
+                  size='xs'
+                  colorScheme='green'
+                ></Progress>
+              </Box>
+            </Flex>
+            <Flex
+              flexDirection='column'
+              justifyContent='space-around'
+              ml='3'
+              mr='3'
+            >
+              <Box mr='4' textAlign='center'>
+                <Text>Tarde</Text>
+              </Box>
+              <Divider />
+              <Box textAlign='center'>
+                <Text fontSize='x-large' fontWeight='semibold' mt='2'>
+                  {data.filter((item) => item.status === "tarde").length}
+                </Text>
+              </Box>
+              <Box h='10'>
+                <Progress
+                  value={
+                    (data.filter((item) => item.status === "tarde").length *
+                      100) /
+                    data.length
+                  }
+                  mt='5'
+                  size='xs'
+                  colorScheme='green'
+                ></Progress>
+              </Box>
+            </Flex>
+
+            <Flex
+              flexDirection='column'
+              justifyContent='space-around'
+              ml='3'
+              mr='3'
+            >
+              <Box mr='4' textAlign='center'>
+                <Text>Retiro ant.</Text>
+              </Box>
+              <Divider />
+              <Box textAlign='center'>
+                <Text fontSize='x-large' fontWeight='semibold' mt='2'>
+                  {data.filter((item) => item.status === "retiro").length}
+                </Text>
+              </Box>
+              <Box h='10'>
+                <Progress
+                  value={
+                    (data.filter((item) => item.status === "retiro").length *
+                      100) /
+                    data.length
+                  }
+                  mt='5'
+                  size='xs'
+                  colorScheme='green'
+                ></Progress>
+              </Box>
+            </Flex>
+          </Flex>
+        </Flex>
+        <Container maxW='container.xl' mt='6'>
+          <Flex flexDirection='row'>
+            <Box>
+              <Calendar
+                data={data}
+                contentHeight='350px'
+                width='container.sm'
+                aspectRatio='1.15'
+              />
+            </Box>
+            <Flex
+              width='container.lg'
+              flexDirection='row'
+              flexWrap='wrap'
+              ml='4'
+            >
+              {initialDates.map((date) => {
+                return (
+                  <Box width='30%' m='2' mb='2' mt='2' shadow='lg'>
+                    <CalendarSm data={data} initialDate={date}></CalendarSm>
+                  </Box>
+                )
+              })}
+            </Flex>
+          </Flex>
+          <Flex>
+            <PieChart data={testData} statData={data} />
+            <PieChart data={testData} statData={data} />
+
+            <PieChart data={testData} statData={data} />
+          </Flex>
+          <Container w='full'>
+            <AbsenteeismLog data={data} />
           </Container>
+          <LineChart data={data} />
         </Container>
-      </>
+      </Box>
     )
   } else {
     return <h1>Loading...</h1>
