@@ -275,14 +275,12 @@ export default function employeeStat() {
           </Flex>
           <Flex>
             <PieChart data={testData} statData={data} />
-            <PieChart data={testData} statData={data} />
-
-            <PieChart data={testData} statData={data} />
+            <LineChart data={data} />
           </Flex>
+
           <Container w='full'>
             <AbsenteeismLog data={data} />
           </Container>
-          <LineChart data={data} />
         </Container>
       </Box>
     )

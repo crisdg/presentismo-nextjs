@@ -2,21 +2,73 @@ import React, { useEffect } from "react"
 import * as d3 from "d3"
 import { Box } from "@chakra-ui/react"
 function LineChart({ data }) {
-  const chartData = [
-    { date: new Date("2022-01-01"), value: 2 },
-    { date: new Date("2022-01-03"), value: 2 },
-    { date: new Date("2022-02-02"), value: 0 },
-    { date: new Date("2022-03-02"), value: 1 },
-    { date: new Date("2022-04-02"), value: 4 },
-    { date: new Date("2022-05-02"), value: 2 },
-    { date: new Date("2022-06-02"), value: 3 },
-    { date: new Date("2022-07-02"), value: 2 },
-    { date: new Date("2022-08-02"), value: 0 },
-    { date: new Date("2022-09-02"), value: 1 },
-    { date: new Date("2022-10-02"), value: 5 },
-    { date: new Date("2022-11-02"), value: 2 },
-    { date: new Date("2022-12-02"), value: 2 },
+  //ordena array alfabeticamente
+  function compareMonth(a, b) {
+    if (a.month.toLowerCase() < b.month.toLowerCase()) {
+      return -1
+    }
+    if (a.month.toLowerCase() > b.month.toLowerCase()) {
+      return 1
+    }
+    return 0
+  }
+  // filtra los datos eliminando las entradas con status "presente"
+  const filteredData = data
+    .filter((item) => item.status !== "presente")
+    .map((item) => {
+      const month = new Date(item.fecha).getMonth() + 1
+
+      return month
+    })
+    .reduce((monthCont, date) => {
+      monthCont[date] = (monthCont[date] || 0) + 1
+
+      return monthCont
+    }, {})
+  // convierto el objeto en un array de ojetos
+  let dataArr = Object.entries(filteredData).map((entrie, index) => {
+    const date = new Date(2022, entrie[0] - 1)
+
+    const dateStr = entrie[0] < 10 ? `0${entrie[0]}` : entrie[0]
+
+    return {
+      month: dateStr,
+      date: date,
+      value: entrie[1],
+    }
+  })
+
+  const months = [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
   ]
+
+  months.forEach((month) => {
+    const monthsData = dataArr.map((item) => item.month)
+
+    const monthValidate = monthsData.includes(month)
+
+    if (monthValidate === false) {
+      dataArr.push({
+        month: month,
+        date: new Date(2022, month),
+        value: 0,
+      })
+    }
+  })
+
+  dataArr.sort(compareMonth)
+
   useEffect(() => {
     // set the dimensions and margins of the graph
     const margin = { top: 10, right: 30, bottom: 30, left: 60 },
@@ -80,64 +132,7 @@ function LineChart({ data }) {
         )
     }
 
-    populateChart(chartData)
-
-    // d3.csv(
-    //   "https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered_comma.csv",
-
-    //   // When reading the csv, I must format variables:
-    //   function (d) {
-    //     return { date: d3.timeParse("%Y-%m-%d")(d.date), value: d.value }
-    //   }
-    // ).then(
-    //   // Now I can use this dataset:
-    //   function (data) {
-    //     // Add X axis --> it is a date format
-    //     const x = d3
-    //       .scaleTime()
-    //       .domain(
-    //         d3.extent(data, function (d) {
-    //           return d.date
-    //         })
-    //       )
-    //       .range([0, width])
-    //     svg
-    //       .append("g")
-    //       .attr("transform", `translate(0, ${height})`)
-    //       .call(d3.axisBottom(x))
-
-    //     // Add Y axis
-    //     const y = d3
-    //       .scaleLinear()
-    //       .domain([
-    //         0,
-    //         d3.max(data, function (d) {
-    //           return +d.value
-    //         }),
-    //       ])
-    //       .range([height, 0])
-    //     svg.append("g").call(d3.axisLeft(y))
-
-    //     // Add the line
-    //     svg
-    //       .append("path")
-    //       .datum(data)
-    //       .attr("fill", "none")
-    //       .attr("stroke", "steelblue")
-    //       .attr("stroke-width", 2)
-    //       .attr(
-    //         "d",
-    //         d3
-    //           .line()
-    //           .x(function (d) {
-    //             return x(d.date)
-    //           })
-    //           .y(function (d) {
-    //             return y(d.value)
-    //           })
-    //       )
-    //   }
-    // )
+    populateChart(dataArr)
   }, [])
 
   return <Box bg='#fff' w='fit-content' id='my_dataviz'></Box>
