@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import * as d3 from "d3"
-import { Box } from "@chakra-ui/react"
+import { Box, Flex } from "@chakra-ui/react"
 function LineChart({ data }) {
   //ordena array alfabeticamente
   function compareMonth(a, b) {
@@ -73,7 +73,7 @@ function LineChart({ data }) {
     // set the dimensions and margins of the graph
     const margin = { top: 10, right: 30, bottom: 30, left: 60 },
       width = 700 - margin.left - margin.right,
-      height = 400 - margin.top - margin.bottom
+      height = 350 - margin.top - margin.bottom
 
     // append the svg object to the body of the page
     const svg = d3
@@ -135,7 +135,18 @@ function LineChart({ data }) {
     populateChart(dataArr)
   }, [])
 
-  return <Box bg='#fff' w='fit-content' id='my_dataviz'></Box>
+  return (
+    <Flex
+      bg='#fff'
+      w='fit-content'
+      h='400'
+      id='my_dataviz'
+      borderRadius='md'
+      padding='9'
+      boxShadow='lg'
+      margin='5'
+    ></Flex>
+  )
 }
 
 export default LineChart

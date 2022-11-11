@@ -45,13 +45,21 @@ export default function employeeStat() {
     { label: "Tarde", value: 8 },
     { label: "Retiro", value: 2 },
   ]
+  function employeeName(d) {
+    const lastName = d[0].apellido
+    const name = d[0].nombre
 
+    const employeeName = `${lastName} ${name}`
+    return employeeName
+  }
   if (data) {
+    const empName = employeeName(data)
+
     return (
       <Box height='100%' mr='10' ml='10'>
         <Flex mt='10' height='40' shadow='md' bg='#fff' borderRadius='md'>
           <Box marginRight='4' ml='4' width='container.sm' textAlign='center'>
-            <Heading size='md'>Nombre de empleado</Heading>
+            <Heading size='md'>{empName}</Heading>
             <Flex
               boxSize='28'
               alignItems='center'
@@ -264,9 +272,9 @@ export default function employeeStat() {
               flexWrap='wrap'
               ml='4'
             >
-              {initialDates.map((date) => {
+              {initialDates.map((date, index) => {
                 return (
-                  <Box width='30%' m='2' mb='2' mt='2' shadow='lg'>
+                  <Box width='30%' m='2' mb='2' mt='2' shadow='lg' key={index}>
                     <CalendarSm data={data} initialDate={date}></CalendarSm>
                   </Box>
                 )
@@ -277,10 +285,9 @@ export default function employeeStat() {
             <PieChart data={testData} statData={data} />
             <LineChart data={data} />
           </Flex>
-
-          <Container w='full'>
+          <Flex alignItems='flex-start'>
             <AbsenteeismLog data={data} />
-          </Container>
+          </Flex>
         </Container>
       </Box>
     )
