@@ -11,9 +11,9 @@ export default function NavBar() {
         <Link href='/absenteeism'>
           <a>Ausencias</a>
         </Link>
-        <Link href='/reports/dashboard'>
-          <a>Reportes</a>
-        </Link>
+        <button>
+          <a href='/reports/dashboard'>Reportes</a>
+        </button>
         <button onClick={logout}>Logout</button>
       </nav>
     </>

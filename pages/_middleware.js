@@ -1,7 +1,7 @@
-import { Jwt } from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 import Router from "next/router"
 import cookie from "cookie"
-import Cookies from "js-cookie"
+
 export function WithAuth(Component) {
   const AuthComponent = (props) => {
     //obtenemos el jwt de la solicitud
@@ -17,13 +17,16 @@ export function WithAuth(Component) {
 
     try {
       //verificamos el jwt con la clave del servido
+      console.log(token)
       const decoded = jwt.verify(token, "secret")
+      console.log(decoded)
       //si el token es valido podemos agregar la informacion de las props al componente
       const newProp = { ...props, user: decoded }
 
       //si el user esta autenticado renderiza el componente original
       return <Component {...newProp} />
     } catch (error) {
+      console.log(error)
       //si el token no es valido el user no esta autenticado
       return <p>Debe iniciar sesion para ver esta pagina</p>
     }
