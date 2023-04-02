@@ -1,6 +1,7 @@
 import NavBar from "../../../src/navBar"
+import { WithAuth } from "../../_middleware"
 
-export default function Dashboard() {
+function Dashboard() {
   return (
     <div>
       <NavBar />
@@ -8,3 +9,4 @@ export default function Dashboard() {
     </div>
   )
 }
+export default WithAuth(Dashboard)

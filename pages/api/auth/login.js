@@ -5,7 +5,7 @@ import { serialize } from "cookie"
 
 export default async function loginHandler(req, res) {
   const { user, password } = req.body
-  console.log(user, password, "desde req")
+
   try {
     const resultado = await new Promise((resolve, reject) => {
       const query = "SELECT * FROM usuarios WHERE user = ? LIMIT 1;"
@@ -15,10 +15,7 @@ export default async function loginHandler(req, res) {
       })
     })
 
-    console.log(resultado, "resultado desde db")
-
     if (!resultado) {
-      console.log("no resultado de db")
       return res.status(401).json("usuario o contraseña incorrectos")
     }
 
@@ -26,9 +23,8 @@ export default async function loginHandler(req, res) {
       password,
       resultado.hashedPass
     )
-    console.log(esContraseñaValida, "desde compare")
+
     if (!esContraseñaValida) {
-      console.log(esContraseñaValida, "cont invalida")
       res.status(401).json("Contraseña o correo incorrectos")
     }
     const token = jwt.sign(
