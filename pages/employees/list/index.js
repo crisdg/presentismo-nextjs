@@ -19,7 +19,6 @@ import UpdateEmployeeForm from "../../../src/updateEmployeeForm"
 
 export default function EmployeesList() {
   const [employees, setEmployees] = useState([])
-  const { isOpen, onOpen, onClose } = useDisclosure()
 
   useEffect(() => {
     fetch("/api/getEmployees")
@@ -58,7 +57,7 @@ export default function EmployeesList() {
                     <>
                       <Tr>
                         <Td>{employee.id}</Td>
-                        <Td>{employee.apeliido}</Td>
+                        <Td>{employee.apelliido}</Td>
                         <Td>{employee.nombre}</Td>
                         <Td>{employee.sector}</Td>
                         <Td>{employee.puesto}</Td>

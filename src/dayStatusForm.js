@@ -57,6 +57,7 @@ export default function DayStatusForm() {
         return setError(json)
       }
     } catch (e) {
+      console.log(e)
       throw Error({ message: e.message })
     }
   }
@@ -133,7 +134,7 @@ export default function DayStatusForm() {
                   <Flex>
                     <Input
                       type='text'
-                      value={employee.apeliido}
+                      value={employee.apelliido}
                       id='apellido'
                       mb='2.5'
                       mr='2.5'

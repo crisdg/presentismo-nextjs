@@ -17,7 +17,6 @@ const handler = async (req, res) => {
     turno,
   } = req.body
 
-  console.log(req.body, "desdeapi")
   try {
     if (!apelliido || !nombre) {
       return res
@@ -33,14 +32,14 @@ const handler = async (req, res) => {
       [
         filter.clean(id),
         filter.clean(apelliido),
-        filter.clean(nombre),
-        filter.clean(fecha_ingreso),
-        filter.clean(dni),
-        filter.clean(direccion),
-        filter.clean(telefono),
-        filter.clean(sector),
-        filter.clean(puesto),
         filter.clean(turno),
+        filter.clean(puesto),
+        filter.clean(sector),
+        filter.clean(telefono),
+        filter.clean(direccion),
+        filter.clean(dni),
+        filter.clean(fecha_ingreso),
+        filter.clean(nombre),
       ]
     )
 

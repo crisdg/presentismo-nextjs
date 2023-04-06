@@ -44,12 +44,10 @@ export default function Attendance() {
 
   // toma las fechas de la db "presentismo" y completa las fechas faltantes entre la 1ª y la ultima carga
 
-  const dates = globalStatus.map((item) => item.fecha)
+  const dates = globalStatus.map((item) => new Date(item.fecha))
 
   const uniqueDates = [...new Set(dates)]
   const uniqueDatesFormatted = uniqueDates.map((date) => new Date(date))
-
-  console.log(firstDate)
 
   const minDate = firstDate
     ? new Date(firstDate + "T00:00:00")
@@ -70,6 +68,7 @@ export default function Attendance() {
     const employeeFilter = globalStatus.filter(
       (status) => status.id_empleado === employee.id
     )
+
     return employeeFilter
   })
 
@@ -86,11 +85,12 @@ export default function Attendance() {
 
     return {
       nombre: employee.nombre,
-      apellido: employee.apeliido,
+      apellido: employee.apelliido,
       id: employee.id,
       dates: stat,
     }
   })
+
   // toma el array presentismo y completa el status de los dias sin carga dejandolos vacios.
   const completo = presentismo.map((employee) => {
     const employeeStatus = employee.dates.map((date) => {
@@ -220,7 +220,7 @@ export default function Attendance() {
                 <tr key={Math.random()}>
                   <td>
                     <Link href={`/absenteeism/${employee.id}`}>
-                      <a>{`${employee.apeliido} ${employee.nombre}`}</a>
+                      <a>{`${employee.apelliido} ${employee.nombre}`}</a>
                     </Link>
                   </td>
 
