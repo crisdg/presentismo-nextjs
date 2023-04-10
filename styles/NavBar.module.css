@@ -7,9 +7,11 @@
   align-items: center;
 }
 
-.nav a {
+.nav button a {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+  font-size: 1.1rem;
+  padding: 2rem;
 }

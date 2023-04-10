@@ -1,16 +1,16 @@
 import styles from "../styles/NavBar.module.css"
-import Link from "next/link"
+
 export default function NavBar() {
   const logout = () => {}
   return (
     <>
       <nav className={styles.nav}>
-        <Link href='/employees/list'>
-          <a>empleados</a>
-        </Link>
-        <Link href='/absenteeism'>
-          <a>Ausencias</a>
-        </Link>
+        <button colorScheme='facebook'>
+          <a href='/employees/list'>empleados</a>
+        </button>
+        <button>
+          <a href='/absenteeism'>Ausencias</a>
+        </button>
         <button>
           <a href='/reports/dashboard'>Reportes</a>
         </button>

@@ -1,8 +1,9 @@
 import NavBar from "../../src/navBar"
 import Attendance from "../../src/attendance"
+import { WithAuth } from "../_middleware"
 import { Box } from "@chakra-ui/react"
 
-export default function Ausentismo() {
+function Ausentismo() {
   return (
     <Box>
       <NavBar />
@@ -10,3 +11,4 @@ export default function Ausentismo() {
     </Box>
   )
 }
+export default WithAuth(Ausentismo)

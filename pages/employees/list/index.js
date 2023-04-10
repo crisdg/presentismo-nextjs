@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useDisclosure } from "@chakra-ui/react"
+import { WithAuth } from "../../_middleware"
 import {
   Heading,
   Table,
@@ -17,7 +18,7 @@ import Styles from "../../../styles/createEmployeeForm.module.css"
 import CreateEmployeeForm from "../../../src/createEmployeeForm"
 import UpdateEmployeeForm from "../../../src/updateEmployeeForm"
 
-export default function EmployeesList() {
+function EmployeesList() {
   const [employees, setEmployees] = useState([])
 
   useEffect(() => {
@@ -81,3 +82,5 @@ export default function EmployeesList() {
     </>
   )
 }
+
+export default WithAuth(EmployeesList)

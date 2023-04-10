@@ -17,9 +17,9 @@ export function WithAuth(Component) {
 
     try {
       //verificamos el jwt con la clave del servido
-      console.log(token)
+
       const decoded = jwt.verify(token, "secret")
-      console.log(decoded)
+
       //si el token es valido podemos agregar la informacion de las props al componente
       const newProp = { ...props, user: decoded }
 

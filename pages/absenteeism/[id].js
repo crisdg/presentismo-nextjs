@@ -1,7 +1,7 @@
 import React from "react"
 import { useRouter } from "next/router"
 import { useEmployeeStat, useEntry } from "../../lib/swr-hooks"
-
+import { WithAuth } from "../_middleware"
 import {
   Heading,
   Flex,
@@ -18,24 +18,24 @@ import AbsenteeismLog from "../../src/absenteeismLog"
 import PieChart from "../../src/pieChart"
 import LineChart from "../../src/lineChart"
 
-export default function employeeStat() {
+function employeeStat() {
   const router = useRouter()
   const id = router.query.id
   const { data } = useEmployeeStat(id)
 
   const initialDates = [
-    "2022-01-01",
-    "2022-02-02",
-    "2022-03-01",
-    "2022-04-01",
-    "2022-05-01",
-    "2022-06-01",
-    "2022-07-01",
-    "2022-08-02",
-    "2022-09-01",
-    "2022-10-01",
-    "2022-11-01",
-    "2022-12-01",
+    "2023-01-01",
+    "2023-02-02",
+    "2023-03-01",
+    "2023-04-01",
+    "2023-05-01",
+    "2023-06-01",
+    "2023-07-01",
+    "2023-08-02",
+    "2023-09-01",
+    "2023-10-01",
+    "2023-11-01",
+    "2023-12-01",
   ]
   //**array de prueba para pieChart */
   const testData = [
@@ -295,3 +295,4 @@ export default function employeeStat() {
     return <h1>Loading...</h1>
   }
 }
+export default WithAuth(employeeStat)

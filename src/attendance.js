@@ -3,6 +3,7 @@ import Link from "next/link"
 import * as d3 from "d3"
 
 import { useDisclosure } from "@chakra-ui/react"
+import { WithAuth } from "../pages/_middleware"
 
 import {
   Button,
@@ -21,7 +22,7 @@ import {
 import DayStatusForm from "./dayStatusForm"
 import styles from "../styles/Attendance.module.css"
 
-export default function Attendance() {
+function Attendance() {
   const [employees, setEmployees] = useState([])
   const [globalStatus, setGlobalStatus] = useState([])
   const [firstDate, setFirstDate] = useState()
@@ -253,3 +254,5 @@ export default function Attendance() {
     </>
   )
 }
+
+export default Attendance
