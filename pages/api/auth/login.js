@@ -5,6 +5,7 @@ import { serialize } from "cookie"
 
 export default async function loginHandler(req, res) {
   const { user, password } = req.body
+  const secret = process.env.JWT_SECRET
 
   try {
     const resultado = await new Promise((resolve, reject) => {
@@ -32,11 +33,11 @@ export default async function loginHandler(req, res) {
         exp: Math.floor(Date.now() / 1000) + 60 * 60,
         user: user,
       },
-      "secret"
+      secret
     )
     const serialized = serialize("myTokenName", token, {
       httpOnly: true,
-      secure: "secret" === "production",
+      secure: secret === "production",
       sameSite: "strict",
       maxAge: 1000 * 60 * 60 * 24 * 30,
       path: "/",

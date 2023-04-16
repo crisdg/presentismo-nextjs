@@ -42,7 +42,6 @@ export default function login() {
         userName: usuario.data.user.user,
       })
 
-      console.log(res, usuario.data.user.user, userName)
       router.push("/")
     } catch (error) {
       console.log(error)
