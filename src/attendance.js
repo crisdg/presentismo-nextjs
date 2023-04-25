@@ -3,7 +3,6 @@ import Link from "next/link"
 import * as d3 from "d3"
 
 import { useDisclosure } from "@chakra-ui/react"
-import { WithAuth } from "../pages/_middleware"
 
 import {
   Button,
@@ -220,9 +219,11 @@ function Attendance() {
               return (
                 <tr key={Math.random()}>
                   <td>
-                    <Link href={`/absenteeism/${employee.id}`}>
-                      <a>{`${employee.apelliido} ${employee.nombre}`}</a>
-                    </Link>
+                    <button>
+                      <a
+                        href={`/absenteeism/${employee.id}`}
+                      >{`${employee.apelliido} ${employee.nombre}`}</a>
+                    </button>
                   </td>
 
                   {completo.map((item) => {
